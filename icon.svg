@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#FBF8F2"/>
+  <!-- 封筒 -->
+  <rect x="76" y="140" width="360" height="248" rx="28" fill="#ffffff" stroke="#6b4834" stroke-width="22"/>
+  <path d="M90 158 L256 286 L422 158" fill="none" stroke="#6b4834" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 肉球の封蝋 -->
+  <circle cx="256" cy="300" r="70" fill="#6fb82b"/>
+  <g fill="#ffffff">
+    <circle cx="226" cy="282" r="11"/>
+    <circle cx="247" cy="266" r="11"/>
+    <circle cx="268" cy="266" r="11"/>
+    <circle cx="288" cy="282" r="11"/>
+    <path d="M257 290c-20 0-37 15-37 32 0 11 9 19 19 19 7 0 10-3 18-3s11 3 18 3c10 0 19-8 19-19 0-17-17-32-37-32z"/>
+  </g>
+</svg>
