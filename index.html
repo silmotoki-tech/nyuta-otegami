@@ -287,6 +287,15 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     src.value = ''; day.value = today(); render(); src.focus();
   });
   printBtn.addEventListener('click', function () { window.print(); });
+  // 長押しの「ペースト」で貼った時も、まとめ全体なら前の文章(見本など)を置き換える
+  src.addEventListener('paste', function (e) {
+    var t = (e.clipboardData || window.clipboardData).getData('text');
+    if (t && (/本日の診察のまとめ/.test(t) || /【.+】/.test(t))) {
+      e.preventDefault();
+      src.value = t;
+      render();
+    }
+  });
   src.addEventListener('input', render);
   day.addEventListener('input', render);
 
