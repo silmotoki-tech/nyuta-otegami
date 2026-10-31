@@ -252,7 +252,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       if (/^出力[12][：:]/.test(line)) return;               // 「出力2：…」の行
       if (/^（見本です/.test(line)) return;
       if (line === 'にゅうた動物病院') return;               // 紙の下に入れるので省く
-      if (line === '本日の診察のまとめ') { title = line; return; }
+      if (line === '本日の診察のまとめ' || line === '検査結果のご説明') { title = line; return; }
       if (/^[（(].*飼い主様へ[）)]$/.test(line)) { to = line.replace(/^[（(]|[）)]$/g, ''); return; }
       var h = line.match(/^【(.+)】$/);
       if (h && h[1] !== '要確認') { flush(); html.push('<h2>' + esc(h[1]) + '</h2>'); return; }
