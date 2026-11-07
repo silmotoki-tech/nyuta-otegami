@@ -151,7 +151,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
     <div class="field">
       <label for="toName">宛名(書いた時だけ紙に出ます)</label>
-      <input type="text" id="toName" autocomplete="off" placeholder="例: 山田様 / ミケちゃんの飼い主様">
+      <input type="text" id="toName" autocomplete="off" placeholder="例: 山田ミケ → 山田ミケちゃん">
     </div>
 
     <div class="field">
@@ -271,7 +271,10 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 
     outTitle.textContent = title;
     var typed = toName.value.trim();
-    if (typed) to = typed;                                  // 宛名欄に書いてあれば、そちらを優先
+    if (typed) {                                            // 宛名欄に書いてあれば、そちらを優先
+      // 敬称がなければ「ちゃん」を付ける(山田ミケ → 山田ミケちゃん)
+      to = /(様|さま|さん|ちゃん|くん|君|へ)$/.test(typed) ? typed : typed + 'ちゃん';
+    }
     outTo.hidden = !to;
     outTo.textContent = to;
     outBody.innerHTML = html.length ? html.join('') : '<p class="empty">ここに文章が表示されます。</p>';
