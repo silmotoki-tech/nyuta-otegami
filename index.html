@@ -97,6 +97,12 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
   border-radius: 8px; padding: 10px 12px; font-size: 14px; line-height: 1.6;
 }
 .note { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+.info {
+  background: var(--panel); color: var(--ink);
+  border: 1px solid var(--accent); border-left-width: 5px;
+  border-radius: 8px; padding: 10px 12px; font-size: 14px; line-height: 1.6;
+}
+.edited { font-size: 12px; color: var(--accent); margin: -6px 0 0; line-height: 1.6; }
 
 /* 右: A4の紙 */
 .stage { min-width: 0; display: flex; justify-content: center; align-items: flex-start; overflow: auto; }
@@ -158,6 +164,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       <label for="src">まとめの文章</label>
       <textarea id="src" spellcheck="false"></textarea>
     </div>
+    <p class="edited" id="editedNote" hidden>手で直したところがあります。印刷する時に、直した文を自動でコピーします。</p>
 
     <div class="row">
       <div class="field">
@@ -169,11 +176,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     </div>
 
     <div class="warn" id="warn" hidden></div>
+    <div class="info" id="info" role="status" hidden></div>
 
     <div class="row">
+      <button type="button" id="copyBtn">控えをコピー</button>
       <button type="button" class="primary" id="printBtn">印刷する</button>
     </div>
-    <p class="note">文章はこのページにだけ表示され、どこにも保存・送信されません。ページを閉じると消えます。<br>渡す前に、受付で【お薬】の欄を会計明細・薬袋と見比べてください。</p>
+    <p class="note">文章はこのページにだけ表示され、どこにも保存・送信されません。ページを閉じると消えます。<br>手で直した時は、コピーした文をChatGPTのチャットに貼ると、Notionの控えが渡した紙と同じになります。<br>渡す前に、受付で【お薬】の欄を会計明細・薬袋と見比べてください。</p>
   </section>
 
   <section class="stage" aria-label="印刷プレビュー">
@@ -204,6 +213,13 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
   var outTitle = document.getElementById('outTitle');
   var outTo = document.getElementById('outTo');
   var outBody = document.getElementById('outBody');
+  var info = document.getElementById('info');
+  var copyBtn = document.getElementById('copyBtn');
+  var editedNote = document.getElementById('editedNote');
+
+  // 貼り付けた時点の文章。印刷する文章と比べて、手で直したかを見る
+  var original = '';
+  var COPY_HEAD = '【お手紙の控え(手直し版)】';
 
   var SAMPLE = [
     '（見本です。ここにChatGPTの出力2を貼り付けてください）',
@@ -244,6 +260,54 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     return esc(s).replace(/【要確認】/g, '<span class="check">【要確認】</span>');
   }
 
+  function norm(s) { return s.replace(/\r/g, '').replace(/[ \t]+$/gm, '').trim(); }
+  function isSample() { return src.value === SAMPLE; }
+  function isEdited() {
+    if (!original || isSample()) return false;
+    return norm(src.value) !== norm(original);
+  }
+  // 貼り付けた(置き換えた)文章を、比べる元として覚え直す
+  function setOriginal(t) {
+    original = t;
+    info.hidden = true;
+  }
+  // 宛名欄の入力から、紙に出る宛名を作る
+  function typedTo() {
+    var typed = toName.value.trim();
+    if (!typed) return '';
+    // 敬称がなければ「ちゃん」を付ける(山田ミケ → 山田ミケちゃん)
+    return /(様|さま|さん|ちゃん|くん|君|へ)$/.test(typed) ? typed : typed + 'ちゃん';
+  }
+  // ChatGPTに貼る用の文。先頭の目印で「直さずに控えとして保存」と分かるようにする
+  function copyText() {
+    var head = [COPY_HEAD];
+    var to = typedTo();
+    if (to) head.push('宛名: ' + to);
+    if (day.value) head.push('日付: ' + jpDate(day.value));
+    return head.join('\n') + '\n\n' + norm(src.value);
+  }
+  function showInfo(msg) { info.textContent = msg; info.hidden = false; }
+  function copyToClipboard(t) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(t).catch(function () { return fallbackCopy(t); });
+    }
+    return fallbackCopy(t);
+  }
+  function fallbackCopy(t) {
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = t;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      ok ? resolve() : reject();
+    });
+  }
+
   function render() {
     outDate.textContent = jpDate(day.value);
     var lines = src.value.replace(/\r/g, '').split('\n');
@@ -270,11 +334,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     flush();
 
     outTitle.textContent = title;
-    var typed = toName.value.trim();
-    if (typed) {                                            // 宛名欄に書いてあれば、そちらを優先
-      // 敬称がなければ「ちゃん」を付ける(山田ミケ → 山田ミケちゃん)
-      to = /(様|さま|さん|ちゃん|くん|君|へ)$/.test(typed) ? typed : typed + 'ちゃん';
-    }
+    if (typedTo()) to = typedTo();                          // 宛名欄に書いてあれば、そちらを優先
     outTo.hidden = !to;
     outTo.textContent = to;
     outBody.innerHTML = html.length ? html.join('') : '<p class="empty">ここに文章が表示されます。</p>';
@@ -288,24 +348,46 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       warn.hidden = true;
     }
     printBtn.disabled = checks > 0 || empty;
+    copyBtn.disabled = empty || isSample();
+    editedNote.hidden = !isEdited();
   }
 
   document.getElementById('pasteBtn').addEventListener('click', function () {
     if (!navigator.clipboard || !navigator.clipboard.readText) { src.focus(); return; }
     navigator.clipboard.readText().then(function (t) {
-      if (t) { src.value = t; render(); }
+      if (t) { src.value = t; setOriginal(t); render(); }
     }).catch(function () { src.focus(); });
   });
   document.getElementById('clearBtn').addEventListener('click', function () {
-    src.value = ''; toName.value = ''; day.value = today(); render(); src.focus();
+    src.value = ''; toName.value = ''; day.value = today(); setOriginal(''); render(); src.focus();
   });
-  printBtn.addEventListener('click', function () { window.print(); });
-  // 長押しの「ペースト」で貼った時も、まとめ全体なら前の文章(見本など)を置き換える
+  copyBtn.addEventListener('click', function () {
+    copyToClipboard(copyText()).then(function () {
+      showInfo('控えの文をコピーしました。ChatGPTのチャットに貼ってください。');
+    }, function () {
+      showInfo('コピーできませんでした。まとめの文章を長押しして、全選択からコピーしてください。');
+    });
+  });
+  printBtn.addEventListener('click', function () {
+    // 手で直していなければ、これまでどおりすぐ印刷する
+    if (!isEdited()) { window.print(); return; }
+    // 手で直した時は、直した文を先にコピーしてから印刷する(チャットへの貼り忘れ防止)
+    copyToClipboard(copyText()).then(function () {
+      showInfo('手で直した文をコピーしました。印刷が終わったら、ChatGPTのチャットに貼ってください(Notionの控えが渡した紙と同じになります)。');
+    }, function () {
+      showInfo('手で直したところがあります。印刷が終わったら「控えをコピー」を押して、ChatGPTのチャットに貼ってください。');
+    }).then(function () { window.print(); });
+  });
+  // 長押しの「ペースト」で貼った時も、まとめ全体なら前の文章(見本など)を置き換える。
+  // 欄が空・見本のままの時に貼った文章も、まるごと置き換えとして扱う
   src.addEventListener('paste', function (e) {
     var t = (e.clipboardData || window.clipboardData).getData('text');
-    if (t && (/本日の診察のまとめ/.test(t) || /【.+】/.test(t))) {
+    if (!t) return;
+    var whole = /本日の診察のまとめ/.test(t) || /【.+】/.test(t) || src.value === '' || isSample();
+    if (whole) {
       e.preventDefault();
       src.value = t;
+      setOriginal(t);
       render();
     }
   });
