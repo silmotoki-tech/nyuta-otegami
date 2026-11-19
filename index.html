@@ -26,7 +26,7 @@
   --warn-bg: #fff1ec;
   --warn-ink: #a1381a;
   --paper: #ffffff;
-  --paper-ink: #2e2420;
+  --paper-ink: #111111;
   --font-body: "Zen Kaku Gothic New", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
   --font-head: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", sans-serif;
   color-scheme: light;
@@ -109,33 +109,35 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .sheet {
   width: 210mm; min-height: 297mm; max-width: 100%;
   background: var(--paper); color: var(--paper-ink);
-  padding: 18mm 18mm 16mm;
+  padding: 11mm 14mm 9mm;
   box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.08);
   display: flex; flex-direction: column;
-  font-size: 11.5pt; line-height: 1.85;
+  font-size: 10.5pt; line-height: 1.65; font-weight: 500;
 }
+/* 見出しの帯は1段だけ: 左に題名、右に病院名と日付 */
 .sheet .masthead {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-  border-bottom: 3px solid #6fb82b; padding-bottom: 6px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  border-bottom: 2.5px solid #6fb82b; padding-bottom: 1.5mm;
 }
-.sheet .clinic { font-family: var(--font-head); font-weight: 700; font-size: 13pt; color: #6b4834; letter-spacing: 0.06em; }
-.sheet .date { font-size: 10.5pt; color: #4b5753; font-variant-numeric: tabular-nums; }
-.sheet .title { font-family: var(--font-head); font-size: 19pt; font-weight: 700; margin: 9mm 0 1mm; letter-spacing: 0.04em; text-wrap: balance; }
-.sheet .to { margin: 0 0 6mm; font-size: 12pt; }
+.sheet .title { font-family: var(--font-head); font-size: 14pt; font-weight: 700; letter-spacing: 0.03em; color: #111; }
+.sheet .meta { display: flex; gap: 8px; align-items: baseline; }
+.sheet .clinic { font-family: var(--font-head); font-weight: 700; font-size: 10.5pt; color: #6b4834; letter-spacing: 0.04em; }
+.sheet .date { font-size: 9.5pt; color: #333; font-variant-numeric: tabular-nums; }
+.sheet .to { margin: 2.5mm 0 2.5mm; font-size: 11.5pt; font-weight: 700; color: #111; }
 .sheet .body { flex: 1; }
 .sheet h2 {
-  font-family: var(--font-head); font-size: 12.5pt; font-weight: 700;
-  margin: 6mm 0 1.5mm; padding-bottom: 1mm; border-bottom: 1px solid #e2d8cc;
+  font-family: var(--font-head); font-size: 11pt; font-weight: 700; color: #111;
+  margin: 3.2mm 0 0.8mm; padding-left: 2mm; border-left: 3px solid #6fb82b;
 }
 .sheet h2:first-child { margin-top: 0; }
 .sheet p { margin: 0; }
 .sheet .check { background: #ffe1d6; color: #a1381a; font-weight: 700; padding: 0 3px; border-radius: 3px; }
 .sheet .footer {
-  margin-top: 10mm; padding-top: 3mm; border-top: 1px solid #e2d8cc;
-  font-size: 10pt; color: #4b5753; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-top: 4mm; padding-top: 2mm; border-top: 1px solid #e2d8cc;
+  font-size: 8.5pt; color: #333; font-weight: 400; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
 }
-.sheet .footer .note { flex: 1 1 60%; line-height: 1.6; }
-.sheet .footer strong { font-family: var(--font-head); color: #6b4834; font-size: 11pt; }
+.sheet .footer .note { flex: 1 1 60%; line-height: 1.5; }
+.sheet .footer strong { font-family: var(--font-head); color: #6b4834; font-size: 9.5pt; }
 .sheet .empty { color: #8a958f; }
 
 @page { size: A4; margin: 0; }
@@ -156,7 +158,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     <p class="lead">ChatGPTの「出力2：飼い主さんへのまとめ」を貼り付けると、右に印刷する紙の形で表示されます。直したいところは、この欄でそのまま直してください。</p>
 
     <div class="field">
-      <label for="toName">宛名(書いた時だけ紙に出ます)</label>
+      <label for="toName">宛名(空なら、まとめの1行目の名前から自動で入ります)</label>
       <input type="text" id="toName" autocomplete="off" placeholder="例: 山田ミケ → 山田ミケちゃん">
     </div>
 
@@ -188,10 +190,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
   <section class="stage" aria-label="印刷プレビュー">
     <article class="sheet" id="sheet">
       <header class="masthead">
-        <span class="clinic">にゅうた動物病院</span>
-        <span class="date" id="outDate"></span>
+        <span class="title" id="outTitle">本日の診察のまとめ</span>
+        <span class="meta"><span class="clinic">にゅうた動物病院</span><span class="date" id="outDate"></span></span>
       </header>
-      <div class="title" id="outTitle">本日の診察のまとめ</div>
       <p class="to" id="outTo" hidden></p>
       <div class="body" id="outBody"></div>
       <footer class="footer">
@@ -278,6 +279,22 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     // 敬称がなければ「ちゃん」を付ける(山田ミケ → 山田ミケちゃん)
     return /(様|さま|さん|ちゃん|くん|君|へ)$/.test(typed) ? typed : typed + 'ちゃん';
   }
+  // 【01962 唐澤 ニコル】や【01229 石井 ラッキー＋01230 石井 コテツ】から宛名を作る
+  function headerTo(line) {
+    var m = line.match(/^【\s*(\d{5}(?:-\d{2})?\s+.+)】$/);
+    if (!m) return null;
+    var names = m[1].split(/[＋+]/).map(function (x) {
+      return x.replace(/^\s*\d{5}(?:-\d{2})?\s*/, '').trim();
+    }).filter(Boolean);
+    if (!names.length) return null;
+    // 2頭目以降は苗字が同じなら名前だけにする(石井 ラッキーちゃん・コテツちゃん)
+    var first = names[0].split(/\s+/)[0];
+    return names.map(function (n, i) {
+      var parts = n.split(/\s+/);
+      if (i > 0 && parts.length > 1 && parts[0] === first) n = parts.slice(1).join(' ');
+      return n + 'ちゃん';
+    }).join('・');
+  }
   // ChatGPTに貼る用の文。先頭の目印で「直さずに控えとして保存」と分かるようにする
   function copyText() {
     var head = [COPY_HEAD];
@@ -313,6 +330,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     var lines = src.value.replace(/\r/g, '').split('\n');
     var title = '本日の診察のまとめ';
     var to = '';
+    var fromHeader = '';
     var html = [];
     var para = [];
     function flush() {
@@ -322,6 +340,8 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       var line = raw.trim();
       if (/^```/.test(line)) return;                        // コードブロックの記号
       if (/^出力[12][：:]/.test(line)) return;               // 「出力2：…」の行
+      var ht = headerTo(line);                               // 1行目の【番号 苗字 名前】
+      if (ht !== null) { if (!fromHeader) fromHeader = ht; return; }
       if (/^（見本です/.test(line)) return;
       if (line === 'にゅうた動物病院') return;               // 紙の下に入れるので省く
       if (line === '本日の診察のまとめ' || line === '検査結果のご説明') { title = line; return; }
@@ -334,6 +354,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     flush();
 
     outTitle.textContent = title;
+    if (!to && fromHeader) to = fromHeader;                 // 「(〜の飼い主様へ)」がなければ1行目の名前から
     if (typedTo()) to = typedTo();                          // 宛名欄に書いてあれば、そちらを優先
     outTo.hidden = !to;
     outTo.textContent = to;
