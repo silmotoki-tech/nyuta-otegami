@@ -124,7 +124,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .sheet .clinic { font-family: var(--font-head); font-weight: 700; font-size: 10.5pt; color: #6b4834; letter-spacing: 0.04em; }
 .sheet .date { font-size: 9.5pt; color: #333; font-variant-numeric: tabular-nums; }
 .sheet .to { margin: 2.5mm 0 2.5mm; font-size: 11.5pt; font-weight: 700; color: #111; }
-.sheet .body { flex: 1; }
+.sheet .body { flex: 1; margin-top: 3mm; }
 .sheet h2 {
   font-family: var(--font-head); font-size: 11pt; font-weight: 700; color: #111;
   margin: 3.2mm 0 0.8mm; padding-left: 2mm; border-left: 3px solid #6fb82b;
@@ -158,7 +158,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     <p class="lead">ChatGPTの「出力2：飼い主さんへのまとめ」を貼り付けると、右に印刷する紙の形で表示されます。直したいところは、この欄でそのまま直してください。</p>
 
     <div class="field">
-      <label for="toName">宛名(空なら、まとめの1行目の名前から自動で入ります)</label>
+      <label for="toName">名前(題名の頭に入ります。空なら、まとめの1行目の名前から自動で入ります)</label>
       <input type="text" id="toName" autocomplete="off" placeholder="例: 山田ミケ → 山田ミケちゃん">
     </div>
 
@@ -353,11 +353,12 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
     });
     flush();
 
-    outTitle.textContent = title;
+    // 宛名は題名の左に付ける(唐澤 ニコルちゃんの本日の診察のまとめ)。「の飼い主様へ」は外す
     if (!to && fromHeader) to = fromHeader;                 // 「(〜の飼い主様へ)」がなければ1行目の名前から
     if (typedTo()) to = typedTo();                          // 宛名欄に書いてあれば、そちらを優先
-    outTo.hidden = !to;
-    outTo.textContent = to;
+    var who = to.replace(/[のの]?飼い主様へ$/, '').replace(/^\s+|\s+$/g, '');
+    outTitle.textContent = who ? who + 'の' + title : title;
+    outTo.hidden = true;
     outBody.innerHTML = html.length ? html.join('') : '<p class="empty">ここに文章が表示されます。</p>';
 
     var checks = (src.value.match(/【要確認】/g) || []).length;
