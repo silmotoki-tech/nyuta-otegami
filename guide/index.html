@@ -118,7 +118,7 @@ ul.clean li{margin:3px 0}
   <div class="kicker">にゅうた動物病院 ・ 院長用まとめ</div>
   <h1>AI診療記録の全体像<br><span style="font-size:.6em">いまの仕様と、これからの展開</span></h1>
   <p class="lead">話すだけでカルテとお手紙ができ、記録が書庫に貯まり、次の先生が引き継げる仕組み。</p>
-  <div class="meta">2026-11-24 時点 ・ 診察 v4.5/手術 v1.6/入院 v1.4/取り込み v2.3/表紙係 v2.5(版の正本はNotion「AI診療記録_指示書の版」)</div>
+  <div class="meta">2026-11-26 時点 ・ 診察 v5.1/手術 v1.6/入院 v1.4/取り込み v2.4/表紙係 v2.6(版の正本はNotion「AI診療記録_指示書の版」)</div>
 </header>
 
 <nav class="toc">
@@ -188,15 +188,15 @@ ul.clean li{margin:3px 0}
   <div class="card scroll">
   <svg viewBox="0 0 940 470" role="img" aria-label="ChatGPTの5つの部屋がNotionの受診と患者の表に書き、Claudeの定期作業が表紙を整えお知らせを出す">
     <text x="20" y="30" class="t-b" font-size="16">表で話す ― ChatGPTの部屋(病院の共用アカウント)</text>
-    <rect x="20" y="44" width="170" height="78" rx="14" class="s-green"/><text x="105" y="76" text-anchor="middle" class="t-b">診察</text><text x="105" y="100" text-anchor="middle" class="t-s">先生ごと・v4.5</text>
+    <rect x="20" y="44" width="170" height="78" rx="14" class="s-green"/><text x="105" y="76" text-anchor="middle" class="t-b">診察</text><text x="105" y="100" text-anchor="middle" class="t-s">先生ごと・v5.1</text>
     <rect x="203" y="44" width="170" height="78" rx="14" class="s-orange"/><text x="288" y="76" text-anchor="middle" class="t-b">手術</text><text x="288" y="100" text-anchor="middle" class="t-s">v1.6・JSVAS順</text>
     <rect x="386" y="44" width="170" height="78" rx="14" class="s-blue"/><text x="471" y="76" text-anchor="middle" class="t-b">入院</text><text x="471" y="100" text-anchor="middle" class="t-s">v1.4・入院の地図</text>
     <rect x="569" y="44" width="170" height="78" rx="14" class="s-purple"/><text x="654" y="76" text-anchor="middle" class="t-b">看護連携</text><text x="654" y="100" text-anchor="middle" class="t-s">確定した処方で準備</text>
-    <rect x="752" y="44" width="170" height="78" rx="14" class="s-yellow"/><text x="837" y="76" text-anchor="middle" class="t-b">取り込み</text><text x="837" y="100" text-anchor="middle" class="t-s">電子カルテ→表紙 v2.3</text>
+    <rect x="752" y="44" width="170" height="78" rx="14" class="s-yellow"/><text x="837" y="76" text-anchor="middle" class="t-b">取り込み</text><text x="837" y="100" text-anchor="middle" class="t-s">電子カルテ→表紙 v2.4</text>
 
     <path d="M105 124v66M288 124v66M471 124v66M654 190v-66M837 124v66" class="arrow"/>
 
-    <text x="20" y="214" class="t-b" font-size="16">貯める ― Notion(業務資料 / AI診療記録)</text>
+    <text x="20" y="214" class="t-b" font-size="16">貯める ― Notion(Business・業務資料 / AI診療記録)</text>
     <rect x="20" y="226" width="440" height="104" rx="16" class="s-card"/>
     <text x="40" y="256" class="t-b">受診の表(1行=1頭1日)</text>
     <text x="40" y="282" font-size="14">原文/まとめ(処方の確認・SOAP・お手紙の控え・要確認)</text>
@@ -207,7 +207,7 @@ ul.clean li{margin:3px 0}
     <text x="502" y="306" class="t-s">名前の正本はアニレセの患者情報</text>
     <path d="M460 278h22" class="arrow"/>
     <rect x="20" y="342" width="902" height="34" rx="10" class="s-gray"/>
-    <text x="471" y="364" text-anchor="middle" font-size="13">辞書の一覧(誤変換・薬の名前・院内の人・電子カルテの絵文字)/今日の一覧/今日の締め/けさのお知らせ/指示書の版</text>
+    <text x="471" y="364" text-anchor="middle" font-size="13">辞書の一覧(誤変換・薬の名前・院内の人・電子カルテの絵文字)/今日の締め/けさのお知らせ/指示書の版</text>
 
     <text x="20" y="410" class="t-b" font-size="16">夜に整える ― Claudeの定期作業(人は何もしない)</text>
     <rect x="20" y="420" width="214" height="40" rx="10" class="s-night"/><text x="127" y="445" text-anchor="middle" font-size="13">14時・17時 今日の締め</text>
@@ -229,7 +229,7 @@ ul.clean li{margin:3px 0}
     <g>
       <circle cx="80" cy="60" r="28" class="s-yellow"/><text x="80" y="66" text-anchor="middle" font-size="20">☀</text>
       <text x="80" y="112" text-anchor="middle" class="t-b">朝</text>
-      <text x="80" y="136" text-anchor="middle" class="t-s">最初のチャットに</text><text x="80" y="154" text-anchor="middle" class="t-s">「けさのお知らせ」</text>
+      <text x="80" y="136" text-anchor="middle" class="t-s">「お知らせ」と言えば</text><text x="80" y="154" text-anchor="middle" class="t-s">けさのお知らせが出る</text>
     </g>
     <g>
       <circle cx="270" cy="60" r="28" class="s-green"/><text x="270" y="67" text-anchor="middle" font-size="20">🎙</text>
@@ -257,8 +257,8 @@ ul.clean li{margin:3px 0}
 
 <!-- 4 診察の流れ -->
 <section id="flow">
-  <h2><span class="n">4</span>診察の流れ(診察の指示書 v4.5)</h2>
-  <p class="sec-lead">v4.4から、話した文は「まとめて」までチャットに置き、Notionへの書き込みは1頭2回ほどにしました。保存の失敗を減らすためです。</p>
+  <h2><span class="n">4</span>診察の流れ(診察の指示書 v5.1)</h2>
+  <p class="sec-lead">話した文は「まとめて」までチャットに置きます。院内の全員が1つのNotion接続を使っているので、Notionを呼ぶ回数を絞り、混んで落ちるのを防いでいます。終わったかどうかは<b>返事の最後の行</b>で分かります。</p>
   <div class="card scroll">
   <svg viewBox="0 0 940 430" role="img" aria-label="番号で名乗り行を作る、診察前の確認、話した文はチャットに置く、まとめてで原文とまとめを保存、OKで確定、看護師が準備">
     <!-- lane labels -->
@@ -269,7 +269,7 @@ ul.clean li{margin:3px 0}
     <path d="M60 100H930M60 230H930M60 350H930" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 6"/>
 
     <rect x="70" y="20" width="130" height="56" rx="12" class="s-green"/><text x="135" y="46" text-anchor="middle" class="t-b">①番号を言う</text><text x="135" y="66" text-anchor="middle" class="t-s">「01234」</text>
-    <rect x="70" y="124" width="130" height="80" rx="12" class="s-purple"/><text x="135" y="150" text-anchor="middle" class="t-b" font-size="14">名乗る</text><text x="135" y="170" text-anchor="middle" class="t-s">山田さんちの</text><text x="135" y="188" text-anchor="middle" class="t-s">ポチちゃんですね</text>
+    <rect x="70" y="124" width="130" height="80" rx="12" class="s-purple"/><text x="135" y="150" text-anchor="middle" class="t-b" font-size="14">名乗る</text><text x="135" y="170" text-anchor="middle" class="t-s">山田さんちのポチちゃん</text><text x="135" y="188" text-anchor="middle" class="t-s">📝チャットの名前も出す</text>
     <rect x="70" y="262" width="130" height="62" rx="12" class="s-blue"/><text x="135" y="290" text-anchor="middle" font-size="13" class="t-b">行だけ作る</text><text x="135" y="310" text-anchor="middle" class="t-s">状態=録音中</text>
     <path d="M135 78v42M135 206v52" class="arrow"/>
 
@@ -277,17 +277,17 @@ ul.clean li{margin:3px 0}
     <path d="M202 164h24" class="arrow"/>
 
     <rect x="410" y="20" width="160" height="56" rx="12" class="s-green"/><text x="490" y="46" text-anchor="middle" class="t-b">③話して送る</text><text x="490" y="66" text-anchor="middle" class="t-s">音声入力→すぐ送る</text>
-    <rect x="410" y="124" width="160" height="80" rx="12" class="s-purple"/><text x="490" y="150" text-anchor="middle" class="t-b" font-size="14">チャットに置くだけ</text><text x="490" y="172" text-anchor="middle" class="t-s">「受け取りました</text><text x="490" y="190" text-anchor="middle" class="t-s">(未保存2回分・11:40)」</text>
+    <rect x="410" y="124" width="160" height="80" rx="12" class="s-purple"/><text x="490" y="150" text-anchor="middle" class="t-b" font-size="14">チャットに置くだけ</text><text x="490" y="172" text-anchor="middle" class="t-s">「受け取りました</text><text x="490" y="190" text-anchor="middle" class="t-s">(②・未保存2回分)」</text>
     <path d="M490 78v42" class="arrow"/>
     <text x="490" y="262" text-anchor="middle" class="t-s">ここではNotionに書かない</text>
 
     <rect x="600" y="20" width="150" height="56" rx="12" class="s-green"/><text x="675" y="46" text-anchor="middle" class="t-b">④「まとめて」</text><text x="675" y="66" text-anchor="middle" class="t-s">ここで初めて保存</text>
-    <rect x="600" y="124" width="150" height="80" rx="12" class="s-purple"/><text x="675" y="148" text-anchor="middle" class="t-b" font-size="13">処方の確認</text><text x="675" y="168" text-anchor="middle" class="t-s">SOAP・お手紙</text><text x="675" y="188" text-anchor="middle" class="t-s">最後に「👉OKを」</text>
-    <rect x="600" y="246" width="150" height="40" rx="10" class="s-blue"/><text x="675" y="271" text-anchor="middle" font-size="13">1回目: 原文</text>
-    <rect x="600" y="294" width="150" height="40" rx="10" class="s-blue"/><text x="675" y="319" text-anchor="middle" font-size="13">2回目: まとめ</text>
+    <rect x="600" y="124" width="150" height="80" rx="12" class="s-purple"/><text x="675" y="148" text-anchor="middle" class="t-b" font-size="13">処方の確認</text><text x="675" y="168" text-anchor="middle" class="t-s">SOAP・お手紙</text><text x="675" y="188" text-anchor="middle" class="t-s">最後の行に✅か⚠️</text>
+    <rect x="600" y="246" width="150" height="40" rx="10" class="s-blue"/><text x="675" y="271" text-anchor="middle" font-size="13">追記1回: 原文+まとめ</text>
+    <rect x="600" y="294" width="150" height="40" rx="10" class="s-blue"/><text x="675" y="319" text-anchor="middle" font-size="13">項目1回: まとめ済み</text>
     <path d="M675 78v42M675 206v36" class="arrow"/>
 
-    <rect x="780" y="20" width="140" height="56" rx="12" class="s-green"/><text x="850" y="46" text-anchor="middle" class="t-b">⑤「OK」</text><text x="850" y="66" text-anchor="middle" class="t-s">処方がある時は必須</text>
+    <rect x="780" y="20" width="140" height="56" rx="12" class="s-green"/><text x="850" y="46" text-anchor="middle" class="t-b">⑤「OK」</text><text x="850" y="66" text-anchor="middle" class="t-s">処方がある時だけ</text>
     <rect x="780" y="262" width="140" height="62" rx="12" class="s-blue"/><text x="850" y="290" text-anchor="middle" font-size="13" class="t-b">処方 確定</text><text x="850" y="310" text-anchor="middle" class="t-s">状態=確認済み</text>
     <rect x="780" y="368" width="140" height="56" rx="12" class="s-purple"/><text x="850" y="393" text-anchor="middle" font-size="13" class="t-b">番号と名前で</text><text x="850" y="412" text-anchor="middle" class="t-s">計算つきで準備</text>
     <path d="M850 78v180M850 326v38" class="arrow"/>
@@ -323,8 +323,8 @@ ul.clean li{margin:3px 0}
   <h2><span class="n">6</span>Notionの形 ― 表紙と、その日のページ</h2>
   <p class="sec-lead">見た目は「番号の一覧 → 開くと受診が日付順」。中身は表2つで、AIが番号+日付で迷わず引けます。</p>
   <div class="card scroll">
-  <svg viewBox="0 0 920 420" role="img" aria-label="表紙には6つの欄があり、受診のページが日付順にぶら下がる">
-    <rect x="20" y="20" width="400" height="380" rx="18" class="s-card"/>
+  <svg viewBox="0 0 920 470" role="img" aria-label="表紙には7つの欄があり、受診のページが日付順にぶら下がる">
+    <rect x="20" y="20" width="400" height="430" rx="18" class="s-card"/>
     <text x="40" y="52" class="t-b" font-size="18">表紙 01234_山田 ポチ</text>
     <text x="40" y="76" class="t-s">犬・柴・去勢済みオス・2018-04-12生</text>
     <rect x="40" y="92" width="360" height="40" rx="10" class="s-red"/><text x="56" y="117" font-size="14">❗ 薬の副反応・合わない薬(確定/未確定)</text>
@@ -333,6 +333,7 @@ ul.clean li{margin:3px 0}
     <rect x="40" y="236" width="360" height="40" rx="10" class="s-purple"/><text x="56" y="261" font-size="14">💊 薬の記録(量が分からなくても使用歴として)</text>
     <rect x="40" y="284" width="360" height="40" rx="10" class="s-blue"/><text x="56" y="309" font-size="14">🦟🪲 予防の記録(治療の薬と分ける)</text>
     <rect x="40" y="332" width="360" height="40" rx="10" class="s-orange"/><text x="56" y="357" font-size="14">📅 今後の検査予定(間隔と次の目安日)</text>
+    <rect x="40" y="380" width="360" height="40" rx="10" class="s-gray"/><text x="56" y="405" font-size="14">🍚💎 食事・フードの記録(フード・サプリ)</text>
 
     <path d="M422 210h60" class="arrow"/><path d="M474 202l8 8-8 8" class="arrow"/>
     <text x="452" y="196" text-anchor="middle" class="t-s">受診</text>
@@ -369,10 +370,10 @@ ul.clean li{margin:3px 0}
     <rect x="660" y="60" width="220" height="80" rx="16" class="s-green"/>
     <text x="770" y="96" text-anchor="middle" class="t-b" font-size="17">確認済み</text><text x="770" y="120" text-anchor="middle" class="t-s">処方も確定</text>
     <path d="M120 142c0 50 0 60 120 60h190" class="arrow-d"/>
-    <text x="300" y="194" font-size="13">言い忘れて日をまたいだら、夜にAIが原文から自動でまとめる(OKまで毎朝⚠️)</text>
+    <text x="300" y="194" font-size="13">言い忘れると原文はチャットの中だけ。締めと翌朝のお知らせで「そのチャットで『まとめて』」と知らせる</text>
   </svg>
   </div>
-  <p class="sm">処方がなければOKは任意(まとめ済みは夜に「先生が確かめたもの」として反映)。処方がある時だけ、「まとめて」の最後に「👉 処方は確定待ちです。合っていれば『OK』」が出る(v4.5)。</p>
+  <p class="sm">保存は「まとめて」で済む(返事の最後に「✅保存済み—リンク」)。OKが要るのは処方がある時だけで、「👉 処方は確定待ちです。合っていれば『OK』」と促される。処方がなければOKは任意(まとめ済みは夜に「先生が確かめたもの」として反映)。</p>
 </section>
 
 <!-- 8 裏方 -->
@@ -383,7 +384,7 @@ ul.clean li{margin:3px 0}
     <div class="card"><span class="pill p-night">14時・17時</span><h3 style="margin-top:6px">今日の締め</h3>
       <ul class="clean sm"><li>まとめていない録音・要確認・手術のまとめ忘れ・入院の地図の空欄を先生ごとに並べる</li><li>処方のOK待ち・薬の量の要確認は<b>「残り」に数えず</b>、(参考)の1行だけ</li></ul></div>
     <div class="card"><span class="pill p-night">毎晩 22:47</span><h3 style="margin-top:6px">表紙係</h3>
-      <ul class="clean sm"><li>まとめ済みの受診から表紙(問題リスト・薬・予防・検査予定)を更新</li><li>誤変換辞書に足し、辞書の一覧を書き出す</li><li>入院中の子を見守る</li><li>まとめ忘れを自動でまとめる</li><li>「けさのお知らせ」を書く。片付くまで毎朝出し続ける</li></ul></div>
+      <ul class="clean sm"><li>まとめ済みの受診から表紙(問題リスト・薬・予防・フード・検査予定・性質)を更新</li><li>誤変換辞書に足し、辞書の一覧を書き出す</li><li>入院中の子を見守る</li><li>取り込みの未保存・まとめ忘れを拾う</li><li>「けさのお知らせ」を書く。片付くまで毎朝出し続ける</li></ul></div>
     <div class="card"><span class="pill p-night">日曜 20:46</span><h3 style="margin-top:6px">バックアップ</h3>
       <ul class="clean sm"><li>薬の名前・誤変換辞書・指示書を院長だけのドライブへ</li><li>前の週と比べて、消えた行・変わった行を通知</li></ul></div>
     <div class="card"><span class="pill p-night">毎月1日</span><h3 style="margin-top:6px">前提ファイル化の見直し</h3>
@@ -423,13 +424,13 @@ ul.clean li{margin:3px 0}
 
       <rect x="562" y="30" width="168" height="240" rx="16" class="s-blue"/>
       <text x="646" y="62" text-anchor="middle" class="t-b" font-size="16">保存</text>
-      <text x="646" y="96" text-anchor="middle">失敗は自動で</text>
-      <text x="646" y="122" text-anchor="middle">やり直す</text>
-      <text x="646" y="148" text-anchor="middle">二重に入れない</text>
-      <text x="646" y="174" text-anchor="middle">読み直して行数を</text>
-      <text x="646" y="196" text-anchor="middle">照らし合わせる</text>
-      <text x="646" y="230" text-anchor="middle" class="t-s">書けていないのに</text>
-      <text x="646" y="248" text-anchor="middle" class="t-s">書いたと言わない</text>
+      <text x="646" y="96" text-anchor="middle">呼ぶ回数を絞る</text>
+      <text x="646" y="122" text-anchor="middle">最後の行に</text>
+      <text x="646" y="148" text-anchor="middle">✅か⚠️+エラー文</text>
+      <text x="646" y="174" text-anchor="middle">次の返事で未保存を</text>
+      <text x="646" y="196" text-anchor="middle">まとめて書く</text>
+      <text x="646" y="230" text-anchor="middle" class="t-s">二重に入れない</text>
+      <text x="646" y="248" text-anchor="middle" class="t-s">取り込みは読み直して照合</text>
 
       <rect x="746" y="30" width="168" height="240" rx="16" class="s-night"/>
       <text x="830" y="62" text-anchor="middle" class="t-b" font-size="16">拾う</text>
@@ -485,9 +486,9 @@ ul.clean li{margin:3px 0}
     <div class="card">
       <h3>ロードマップ</h3>
       <div class="road">
-        <div class="stop now"><span class="pill p-green">いま〜12月</span><b> 指示書の詰めを終える</b><div class="sm">新しい版(診察v4.5・取り込みv2.3)を全部屋に貼る。2週間使い、直した数・喋り直しの回数で判断。院長が「詰めは終わった」と言えば完了。</div></div>
+        <div class="stop now"><span class="pill p-green">いま〜12月</span><b> 指示書の詰めを終える</b><div class="sm">新しい版(診察v5.1・取り込みv2.4)を全部屋に貼る。2週間使い、直した数・喋り直しの回数で判断。院長が「詰めは終わった」と言えば完了。</div></div>
         <div class="stop now"><span class="pill p-green">いま〜12月</span><b> 止まらない仕組み(バックアップ)</b><div class="sm">止まった日の手順/表紙の要点を毎晩スプレッドシートへ/受診の本文を月ごとの文書へ/週次の写しを全指示書へ/月1回のNotionまるごと書き出し/戻す練習。</div></div>
-        <div class="stop now"><span class="pill p-green">近く</span><b> 細かい片づけ</b><div class="sm">文字化けした苗字174頭の修正/裏方の記録をドライブへ/予防薬の製品名を薬の名前の表へ/マイク(DJI Mic Mini 2S)を1セット試す。</div></div>
+        <div class="stop now"><span class="pill p-green">近く</span><b> 細かい片づけ</b><div class="sm">NotionはBusinessにした(11/25)。文字化けした苗字174頭の修正/裏方の記録をドライブへ/予防薬の製品名を薬の名前の表へ/マイク(DJI Mic Mini 2S)を1セット試す。</div></div>
         <div class="stop later"><span class="pill p-blue">次の段階</span><b> 受付と問診(段階4)</b><div class="sm">受付で今日の行を作り、飼い主が待合で稟告を入力。書くだけで読めない入口にする。</div></div>
         <div class="stop later"><span class="pill p-blue">次の段階</span><b> 今日の要点と診療アシスタント(段階5)</b><div class="sm">診察前に気づきを数行で。鑑別の候補・当院のやり方・院内採用品のサジェストを「アナウンス」として出す。</div></div>
         <div class="stop later"><span class="pill p-blue">薬剤マスター完成後</span><b> 処方の準備票を本番に</b><div class="sm">院内の用量で計算・確かめる。今は用量のアナウンスを止めている。</div></div>
@@ -529,7 +530,7 @@ ul.clean li{margin:3px 0}
 </section>
 
 <div class="foot">
-  この資料は2026-11-24時点のまとめです。指示書の版は日々上がるので、版の番号はNotion「AI診療記録_指示書の版」を正本としてください。方針の正本はブレインの「projects/AI診療記録」。<br>
+  この資料は2026-11-26時点のまとめです。指示書の版は日々上がるので、版の番号はNotion「AI診療記録_指示書の版」を正本としてください。方針の正本はブレインの「projects/AI診療記録」。<br>
   AIは間違えることがあります。カルテと会計の正本はアニコムの電子カルテです。
 </div>
 </div>
